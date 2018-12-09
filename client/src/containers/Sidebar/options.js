@@ -1,5 +1,10 @@
 const options = [
   {
+    key: 'paperUploader',
+    label: 'sidebar.paperUploader',
+    leftIcon: 'ion-document',
+  },
+  {
     key: 'blankPage',
     label: 'sidebar.blankPage',
     leftIcon: 'ion-document',
