@@ -31,13 +31,16 @@ class PaperUploader extends Component {
       FileDetails: [],
     };
     this.click= this.click.bind(this)
+
+    console.log(this.props.idToken);
   }
 
   componentWillReceiveProps(nextProps){
   // console.log("nextProps",nextProps.fileData.data.allFilesDetail); return false;
     let fileData = []
+    console.log(nextProps.fileData.data);
     nextProps.fileData.data.allFilesDetail.forEach((element,index) => {
-      // console.log("nextProps",element); return false;
+      //console.log("nextProps",element); return false;
       fileData[index] = [element.fileName,element.uploader,dateformat(element.updatedAt, "mmm dd, yyyy")]
     })
     this.setState({FileDetails: fileData})
@@ -45,7 +48,9 @@ class PaperUploader extends Component {
 
   click(e){
     this.setState({file:e.target.files[0]})
+    console.log(this.props.uploadFile)
     this.props.uploadFile({file:e.target.files[0]})
+
   }
 
   render() {
@@ -82,7 +87,8 @@ class PaperUploader extends Component {
 function mapStateToProps(state) {
   //const { todos, colors } = state.Todos;
   return {
-    fileData: state.fileData
+    fileData: state.fileData,
+    idToken: state.Auth.idToken,
     // todos,
     // colors
   };
