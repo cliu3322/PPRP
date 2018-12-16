@@ -7,10 +7,10 @@ import Box from '../../components/utility/box';
 import LayoutWrapper from '../../components/utility/layoutWrapper.js';
 import IntlMessages from '../../components/utility/intlMessages';
 import Button from '../../components/uielements/button';
-import {uploadFile} from '../../redux/paperuploader/actions.js';
+import actions from '../../redux/paperuploader/actions.js';
 import dateformat from 'dateformat';
 
-
+const { addPaper } = actions;
 const FormItem = Form.Item;
 
 const formItemLayout = {
@@ -27,12 +27,9 @@ const formItemLayout = {
 class PaperUploader extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      FileDetails: [],
-    };
     this.click= this.click.bind(this)
 
-    console.log(this.props.idToken);
+    //console.log(this.props.idToken);
   }
 
   componentWillReceiveProps(nextProps){
@@ -46,12 +43,14 @@ class PaperUploader extends Component {
     this.setState({FileDetails: fileData})
   }
 
-  click(e){
-    this.setState({file:e.target.files[0]})
-    console.log(this.props.uploadFile)
-    this.props.uploadFile({file:e.target.files[0]})
-
+  updateFile(e){
+    this.props.Paper.paper= {file:e.target.files[0]}
   }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log(this.props.paper)
+  };
 
   render() {
     return (
@@ -60,7 +59,7 @@ class PaperUploader extends Component {
           {<IntlMessages id="forms.formsWithValidation.header" />}
         </PageHeader>
         <Box>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <FormItem
               {...formItemLayout}
             >
@@ -69,11 +68,11 @@ class PaperUploader extends Component {
             <FormItem
               {...formItemLayout}
             >
-              <Input placeholder="unavailable choice" type="file" name="filePath" onChange={this.click} />
+              <Input placeholder="unavailable choice" type="file" name="filePath" onChange={this.updateFile} />
             </FormItem>
             <FormItem >
               <Button type="primary" htmlType="submit">
-                Register
+                Upload your paper
               </Button>
             </FormItem>
           </Form>
@@ -86,11 +85,11 @@ class PaperUploader extends Component {
 
 function mapStateToProps(state) {
   //const { todos, colors } = state.Todos;
+  console.log(state);
   return {
-    fileData: state.fileData,
-    idToken: state.Auth.idToken,
+    Paper: state.Paper,
     // todos,
     // colors
   };
 }
-export default connect(mapStateToProps, {uploadFile})(PaperUploader);
+export default connect(mapStateToProps, {addPaper})(PaperUploader);

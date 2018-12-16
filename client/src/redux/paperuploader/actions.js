@@ -1,27 +1,32 @@
-import axios from 'axios';
+const actions = {
+  ADD_PAPER: 'ADD_PAPER',
+  YOUTUBE_SUCCESS_RESULT: 'YOUTUBE_SUCCESS_RESULT',
 
+  addPaper: paper => {
+    return (dispatch, getState) => {
+      const newPaper = {
+        author:'',
+        paper:''
+      };
+      const papers = [newPaper, ...getState().Todos.todos];
+      dispatch({
+        type: actions.ADD_PAPER,
+        papers
+      });
+    };
+  },
 
-
-export function uploadFile(file) {
-
-  return function (dispatch) {
-
-   const formData = new FormData();
-    formData.append('image',file.file,file.file.name)
-    console.log(formData);
-    axios.post(`http://localhost:3000/api/uploadFile`, formData)
-    .then((response)=>{
-      if(response.status==201)
-      {
-        alert(response.data.message);
-
-      }
-      else
-      {
-        alert('File not uploaded, please try again');
-      }
-
-      dispatch({type: 'File_DETAIL', payload: response });
-    })
-  };
-}
+  youtubeSearchSuccess: (
+    result,
+    total_count,
+    nextPageToken,
+    prevPageToken
+  ) => ({
+    type: actions.YOUTUBE_SUCCESS_RESULT,
+    result,
+    total_count,
+    nextPageToken,
+    prevPageToken
+  }),
+};
+export default actions;
