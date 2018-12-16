@@ -2,14 +2,15 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 import actions from './actions';
 import axios from 'axios';
 
-const onPostRequest = async (paperData) =>
+const onPostRequest = async (paperData) => {
+  console.log(paperData);
   await axios.post(`http://localhost:3000/api/uploadFile`, paperData)
     .then(res => res.json())
     .then(res => res)
     .catch(error => error);
+  }
 
-function* addPaper({ payload }) {
-  const { paperData } = payload;
+function* addPaper(paperData) {
   try {
     const addResult = yield call(
       onPostRequest,

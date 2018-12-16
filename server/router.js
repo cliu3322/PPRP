@@ -34,16 +34,16 @@ var upload = multer({
 
 apiRoutes.post("/uploadFile", upload.single('image'), function (req, res, next) {
   // console.log("ghggh",req.file); return false;
-   if (req.file==undefined) {
+  console.log(req.body.paper.paper);
+   if (req.body.paper.paper.file==undefined) {
     return res.status(422).send({ error: 'You must select a file to upload.' });
   }
-
   const product = new FileDetail({
     _id: new mongoose.Types.ObjectId(),
     // uploader: req.body.uploader,
     uploader: "Ajay",
-    filePath: req.file.path,
-    fileName:req.file.originalname
+    filePath: req.body.paper.paper.file.path,
+    fileName:req.body.paper.paper.file.originalname
   });
   product
     .save()

@@ -27,29 +27,25 @@ const formItemLayout = {
 class PaperUploader extends Component {
   constructor(props) {
     super(props);
-    this.updateFile= this.updateFile.bind(this)
-
+    this.updateFile= this.updateFile.bind(this);
+    this.updateAuthor= this.updateAuthor.bind(this)
     //console.log(this.props.idToken);
   }
 
   componentWillReceiveProps(nextProps){
-  // console.log("nextProps",nextProps.fileData.data.allFilesDetail); return false;
-    let fileData = []
-    console.log(nextProps.fileData.data);
-    nextProps.fileData.data.allFilesDetail.forEach((element,index) => {
-      //console.log("nextProps",element); return false;
-      fileData[index] = [element.fileName,element.uploader,dateformat(element.updatedAt, "mmm dd, yyyy")]
-    })
-    this.setState({FileDetails: fileData})
+
   }
 
   updateFile(e){
     this.props.Paper.paper= {file:e.target.files[0]}
   }
+  updateAuthor(e){
+    this.props.Paper.author= e.target.value;
+  }
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.props.paper)
+    this.props.addPaper(this.props.Paper)
   };
 
   render() {
@@ -63,12 +59,12 @@ class PaperUploader extends Component {
             <FormItem
               {...formItemLayout}
             >
-              <Input placeholder="unavailable choice" id="error" />
+              <Input placeholder="Author" id="author" onChange={this.updateAuthor}/>
             </FormItem>
             <FormItem
               {...formItemLayout}
             >
-              <Input placeholder="unavailable choice" type="file" name="filePath" onChange={this.updateFile} />
+              <Input type="file" name="filePath" onChange={this.updateFile} />
             </FormItem>
             <FormItem >
               <Button type="primary" htmlType="submit">
@@ -85,7 +81,7 @@ class PaperUploader extends Component {
 
 function mapStateToProps(state) {
   //const { todos, colors } = state.Todos;
-  console.log(state);
+  //console.log(state);
   return {
     Paper: state.Paper,
     // todos,

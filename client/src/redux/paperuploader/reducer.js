@@ -11,6 +11,7 @@ const initState = {
 export default function paperReducer(state = initState, action) {
   switch (action.type) {
     case actions.ADD_PAPER:
+      console.log('reduce');
       return { ...state, papers: action.papers };
     default:
       return state;

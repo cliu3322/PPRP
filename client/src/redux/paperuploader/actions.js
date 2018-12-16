@@ -4,14 +4,10 @@ const actions = {
 
   addPaper: paper => {
     return (dispatch, getState) => {
-      const newPaper = {
-        author:'',
-        paper:''
-      };
-      const papers = [newPaper, ...getState().Todos.todos];
+      //const papers = [paper, ...getState().Paper];
       dispatch({
         type: actions.ADD_PAPER,
-        papers
+        paper
       });
     };
   },
