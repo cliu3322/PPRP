@@ -27,7 +27,7 @@ const formItemLayout = {
 class PaperUploader extends Component {
   constructor(props) {
     super(props);
-    this.click= this.click.bind(this)
+    this.updateFile= this.updateFile.bind(this)
 
     //console.log(this.props.idToken);
   }
