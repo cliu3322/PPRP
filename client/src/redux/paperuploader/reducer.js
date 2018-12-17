@@ -10,8 +10,7 @@ const initState = {
 
 export default function paperReducer(state = initState, action) {
   switch (action.type) {
-    case actions.ADD_PAPER:
-      console.log('reduce');
+    case actions.ADD_PAPER:  
       return { ...state, papers: action.papers };
     default:
       return state;

@@ -55,18 +55,6 @@ class PaperUploader extends Component {
     //this.props.addPaper(data)
     //axios.post(`http://localhost:3000/api/uploadFile`, data)
   };
-  handleUploadFile = (event) => {
-    const data = new FormData()
-    data.append('file', event.target.files[0])
-    data.append('name', 'some value user types')
-    data.append('description', 'some value user types')
-    axios.post('http://localhost:3000/api/uploadFile', data).then((response) => {
-      this.setState({
-        imageUrl: response.data.fileUrl
-      })
-    })
-  }
-
 
   render() {
     return (
@@ -75,9 +63,23 @@ class PaperUploader extends Component {
           {<IntlMessages id="forms.formsWithValidation.header" />}
         </PageHeader>
         <Box>
-          <div>
-            <input type="file" onChange={this.handleUploadFile} />
-          </div>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              {...formItemLayout}
+            >
+              <Input placeholder="Author" id="author" onChange={this.updateAuthor}/>
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+            >
+              <input type="file" name="file" onChange={this.updateFile} />
+            </FormItem>
+            <FormItem >
+              <Button type="primary" htmlType="submit">
+                Upload your paper
+              </Button>
+            </FormItem>
+          </Form>
         </Box>
 
       </LayoutWrapper>

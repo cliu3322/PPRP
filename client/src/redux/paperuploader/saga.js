@@ -3,12 +3,16 @@ import actions from './actions';
 import axios from 'axios';
 
 const onPostRequest = async (paperData) => {
-  console.log(paperData);
-  await axios.post(`http://localhost:3000/api/uploadFile`, paperData)
-    .then(res => res.json())
-    .then(res => res)
-    .catch(error => error);
-  }
+  // console.log(paperData.paper);
+  // for (var value of paperData.paper.keys()) {
+  //    console.log(value);
+  // }
+  //
+  // await axios.post(`http://localhost:3000/api/uploadFile`, paperData)
+  //   .then(res => res.json())
+  //   .then(res => res)
+  //   .catch(error => error);
+}
 
 function* addPaper(paperData) {
   try {
