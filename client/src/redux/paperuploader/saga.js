@@ -1,6 +1,7 @@
 import { all, takeEvery, call } from 'redux-saga/effects';
 import actions from './actions';
 import axios from 'axios';
+import { delay } from 'redux-saga';
 
 const onPostRequest = async (data) => {
   for (var value of data.values()) {
@@ -8,17 +9,20 @@ const onPostRequest = async (data) => {
   }
   for (var key of data.keys()) {
    console.log(key);
-}
-  await axios.post('http://localhost:3000/api/uploadFile', data).then(res => res)
+  }
+  //  console.log('onPostRequest')
+  return axios.post('http://localhost:3000/api/uploadFile', data)
 }
 
 function* addPaper({payload}) {
+
   const { data } = payload;
   try {
     const addResult = yield call(
       onPostRequest,
       data
     );
+    //yield delay(10000)
     console.log(addResult)
     // if (addResult) {
     //   console.log(addResult)
