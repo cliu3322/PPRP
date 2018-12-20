@@ -43,7 +43,6 @@ class PaperUploader extends Component {
   handleSubmit = e => {
     e.preventDefault();
     data.append('author', this.state.author)
-    console.log(this.state.author);
     this.props.addPaper(data)
     // axios.post('http://localhost:3000/api/uploadFile', data).then((response) => {
     //   console.log(response)

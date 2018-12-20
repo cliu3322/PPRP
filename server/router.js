@@ -13,6 +13,7 @@ const apiRoutes = express.Router();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    console.log(file)
     cb(null, './uploads/')
   },
   filename: function (req, file, cb) {
@@ -24,8 +25,9 @@ var storage = multer.diskStorage({
 
 var upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5 // max 5MB file
+  onError : function(err, next) {
+    console.log('error', err);
+    next(err);
   }
 });
 
@@ -37,7 +39,7 @@ apiRoutes.post("/uploadFile", upload.single('file'), function (req, res, next) {
    if (req.file==undefined) {
     return res.status(422).send({ error: 'You must select a file to upload.' });
   }
-  console.log(req.body.author)
+  //console.log(req.body.author)
   const product = new FileDetail({
     _id: new mongoose.Types.ObjectId(),
     // uploader: req.body.uploader,

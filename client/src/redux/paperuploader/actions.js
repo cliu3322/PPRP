@@ -7,7 +7,7 @@ const actions = {
       //const papers = [paper, ...getState().Paper];
       dispatch({
         type: actions.ADD_PAPER,
-        data
+        payload: {data}
       });
     };
   },

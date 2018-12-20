@@ -3,19 +3,21 @@ import actions from './actions';
 import axios from 'axios';
 
 const onPostRequest = async (data) => {
-  for (var key of data.data.keys()) {
-     console.log(key);
+  for (var value of data.values()) {
+     console.log(value);
   }
-  await axios.post('http://localhost:3000/api/uploadFile', data.data).then((res) => {
-    console.log(res)
-  })
+  for (var key of data.keys()) {
+   console.log(key);
+}
+  await axios.post('http://localhost:3000/api/uploadFile', data).then(res => res)
 }
 
-function* addPaper(paperData) {
+function* addPaper({payload}) {
+  const { data } = payload;
   try {
     const addResult = yield call(
       onPostRequest,
-      paperData
+      data
     );
     console.log(addResult)
     // if (addResult) {
