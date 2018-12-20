@@ -37,18 +37,19 @@ apiRoutes.post("/uploadFile", upload.single('file'), function (req, res, next) {
    if (req.file==undefined) {
     return res.status(422).send({ error: 'You must select a file to upload.' });
   }
+  console.log(req.body.author)
   const product = new FileDetail({
     _id: new mongoose.Types.ObjectId(),
     // uploader: req.body.uploader,
     uploader: "Ajay",
     filePath: req.file.path,
-    fileName:req.file.originalname
+    fileName:req.file.originalname,
+    author:req.body.author
   });
   product.save().then(result => {
   	FileDetail.find({}).exec(function (err, files) {
 
   		if (files) {
-        console.log('GOT IT!!!!')
   			res.status(201).json({
   				message: "File uploaded successfully",
   				allFilesDetail: files

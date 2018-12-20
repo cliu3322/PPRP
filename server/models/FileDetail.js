@@ -5,7 +5,8 @@ const FileDetailSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     uploader: { type: String, required: true },
     filePath: { type: String, required: true },
-    fileName: { type: String, required: true }
+    fileName: { type: String, required: true },
+    author: { type: String, required: false }
 },
 {
   timestamps: true

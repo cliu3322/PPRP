@@ -26,14 +26,7 @@ const formItemLayout = {
 };
 
 class PaperUploader extends Component {
-  constructor(props) {
-    super(props);
-    //console.log(this.props.idToken);
-  }
 
-  componentWillReceiveProps(nextProps){
-
-  }
 
   updateFile(e){
     //this.props.Paper.paper= {file:e.target.files[0]}
@@ -49,6 +42,8 @@ class PaperUploader extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    data.append('author', this.state.author)
+    console.log(this.state.author);
     this.props.addPaper(data)
     // axios.post('http://localhost:3000/api/uploadFile', data).then((response) => {
     //   console.log(response)
@@ -63,7 +58,7 @@ class PaperUploader extends Component {
 
   updateAuthor = (event) => {
 
-    data.append('author', event.target.value)
+    this.props.author=event.target.value;
   };
 
   render() {
@@ -77,7 +72,7 @@ class PaperUploader extends Component {
             <FormItem
               {...formItemLayout}
             >
-              <Input placeholder="Author" id="author" onChange={this.updateAuthor}/>
+              <Input placeholder="Author" id="author" onChange={event => this.setState({ author: event.target.value })}/>
             </FormItem>
             <FormItem
               {...formItemLayout}
