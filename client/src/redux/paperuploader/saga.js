@@ -2,16 +2,10 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 import actions from './actions';
 import axios from 'axios';
 
-const onPostRequest = async (paperData) => {
-  // console.log(paperData.paper);
-  // for (var value of paperData.paper.keys()) {
-  //    console.log(value);
-  // }
-  //
-  // await axios.post(`http://localhost:3000/api/uploadFile`, paperData)
-  //   .then(res => res.json())
-  //   .then(res => res)
-  //   .catch(error => error);
+const onPostRequest = async (data) => {
+  await axios.post('http://localhost:3000/api/uploadFile', data.data).then((response) => {
+    console.log(response)
+  })
 }
 
 function* addPaper(paperData) {
@@ -20,11 +14,9 @@ function* addPaper(paperData) {
       onPostRequest,
       paperData
     );
-    if (addResult.id) {
-      yield put(
-        actions.addpaperSuccess(
-        )
-      );
+    console.log(addResult)
+    if (addResult) {
+      console.log(addResult)
     } else {
       yield put(actions.addpaperSuccess());
     }

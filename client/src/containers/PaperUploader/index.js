@@ -12,6 +12,7 @@ import axios from 'axios';
 
 const { addPaper } = actions;
 const FormItem = Form.Item;
+const data = new FormData();
 
 const formItemLayout = {
   labelCol: {
@@ -27,8 +28,6 @@ const formItemLayout = {
 class PaperUploader extends Component {
   constructor(props) {
     super(props);
-    this.updateFile= this.updateFile.bind(this);
-    this.updateAuthor= this.updateAuthor.bind(this)
     //console.log(this.props.idToken);
   }
 
@@ -40,7 +39,9 @@ class PaperUploader extends Component {
     //this.props.Paper.paper= {file:e.target.files[0]}
     const data = new FormData()
     data.append('file', e.target.files[0])
-    axios.post(`http://localhost:3000/api/uploadFile`, data)
+    axios.post(`http://localhost:3000/api/uploadFile`, data).then((response) => {
+      console.log(response)
+    })
   }
   updateAuthor(e){
     this.props.Paper.author= e.target.value;
@@ -48,25 +49,22 @@ class PaperUploader extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const data = new FormData()
-    data.append('file', this.props.Paper.paper);
-    data.append('author', this.props.Paper.author);
-    console.log(data);
-    //this.props.addPaper(data)
-    //axios.post(`http://localhost:3000/api/uploadFile`, data)
+    this.props.addPaper(data)
+    // axios.post('http://localhost:3000/api/uploadFile', data).then((response) => {
+    //   console.log(response)
+    // })
   };
-  handleUploadFile = (event) => {
-    const data = new FormData()
-    data.append('file', event.target.files[0])
-    data.append('name', 'some value user types')
-    data.append('description', 'some value user types')
-    axios.post('http://localhost:3000/api/uploadFile', data).then((response) => {
-      this.setState({
-        imageUrl: response.data.fileUrl
-      })
-    })
-  }
+  updateFile = (event) => {
 
+    data.append('file', event.target.files[0])
+
+  };
+
+
+  updateAuthor = (event) => {
+
+    data.append('author', event.target.value)
+  };
 
   render() {
     return (
@@ -75,9 +73,23 @@ class PaperUploader extends Component {
           {<IntlMessages id="forms.formsWithValidation.header" />}
         </PageHeader>
         <Box>
-          <div>
-            <input type="file" onChange={this.handleUploadFile} />
-          </div>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              {...formItemLayout}
+            >
+              <Input placeholder="Author" id="author" onChange={this.updateAuthor}/>
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+            >
+              <input type="file" name="file" onChange={this.updateFile} />
+            </FormItem>
+            <FormItem >
+              <Button type="primary" htmlType="submit">
+                Upload your paper
+              </Button>
+            </FormItem>
+          </Form>
         </Box>
 
       </LayoutWrapper>

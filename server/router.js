@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import mongoose from 'mongoose';
 import FileDetail from './models/FileDetail';
+const fileUploadMiddleware = require('./file-upload-middleware')
 
 
 
@@ -28,52 +29,45 @@ var upload = multer({
   }
 });
 
+//apiRoutes.post("/uploadFile", upload.single('file'),fileUploadMiddleware);
 
 
 
-
-apiRoutes.post("/uploadFile", upload.single('image'), function (req, res, next) {
-  // console.log("ghggh",req.file); return false;
-  console.log(req.body.paper.paper);
-   if (req.body.paper.paper.file==undefined) {
+apiRoutes.post("/uploadFile", upload.single('file'), function (req, res, next) {
+   if (req.file==undefined) {
     return res.status(422).send({ error: 'You must select a file to upload.' });
   }
   const product = new FileDetail({
     _id: new mongoose.Types.ObjectId(),
     // uploader: req.body.uploader,
     uploader: "Ajay",
-    filePath: req.body.paper.paper.file.path,
-    fileName:req.body.paper.paper.file.originalname
+    filePath: req.file.path,
+    fileName:req.file.originalname
   });
-  product
-    .save()
-    // .then(result => {
-      .then(result => {
+  product.save().then(result => {
+  	FileDetail.find({}).exec(function (err, files) {
 
+  		if (files) {
+        console.log('GOT IT!!!!')
+  			res.status(201).json({
+  				message: "File uploaded successfully",
+  				allFilesDetail: files
 
- FileDetail.find({ }).exec(function(err, files) {
-        if (files) {
+  			});
+  		} else {
+  			res.status(204).json({
+  				message: "No file detail exist",
+  				allFilesDetail: files
 
-          res.status(201).json({
-        message: "File uploaded successfully",
-        allFilesDetail:files
-
-      });
-        } else {
-          res.status(204).json({
-        message: "No file detail exist",
-        allFilesDetail:files
-
-      });
-        }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
+  			});
+  		}
+  	});
+  }).catch(err => {
+  	console.log('err');
+  	res.status(500).json({
+  		error: err
+  	});
+  });
 });
 
 

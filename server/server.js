@@ -12,6 +12,7 @@ import session from 'express-session';
 const { port, secretKey, expiredAfter } = Config;
 const app = express();
 
+
 function doesUserExists(username, password) {
 	const user = {
 		id: 1,
@@ -72,7 +73,7 @@ app.use(logger('dev')); // Log requests to API using morgan
 // Enable CORS from client-side
 app.use((req, res, next) => {
 
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Origin', '*');//well 这不应该是*的  我比较懒  以后在换吧
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
   res.header('Access-Control-Allow-Credentials', 'true');
