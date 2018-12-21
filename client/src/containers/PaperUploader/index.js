@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const { addPaper } = actions;
 const FormItem = Form.Item;
-const data = new FormData();
+
 
 const formItemLayout = {
   labelCol: {
@@ -28,29 +28,20 @@ const formItemLayout = {
 class PaperUploader extends Component {
 
 
-  updateFile(e){
-    //this.props.Paper.paper= {file:e.target.files[0]}
-    const data = new FormData()
-    data.append('file', e.target.files[0])
-    axios.post(`http://localhost:3000/api/uploadFile`, data).then((response) => {
-      console.log(response)
-    })
-  }
-  updateAuthor(e){
-    this.props.Paper.author= e.target.value;
-  }
-
   handleSubmit = e => {
     e.preventDefault();
-    data.append('author', this.state.author)
+    let data = new FormData();
+    data.append('author', this.state.author);
+    data.append('file', this.state.file);
+
     this.props.addPaper(data)
     // axios.post('http://localhost:3000/api/uploadFile', data).then((response) => {
     //   console.log(response)
     // })
   };
   updateFile = (event) => {
-
-    data.append('file', event.target.files[0])
+    this.setState({file:event.target.files[0]})
+    //data.append('file', event.target.files[0])
 
   };
 

@@ -13,7 +13,7 @@ const apiRoutes = express.Router();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(file)
+    console.log(file.originalname)
     cb(null, './uploads/')
   },
   filename: function (req, file, cb) {
@@ -30,11 +30,15 @@ var upload = multer({
     next(err);
   }
 });
+var upload2 = multer();
 
 //apiRoutes.post("/uploadFile", upload.single('file'),fileUploadMiddleware);
 
 
+apiRoutes.post('/uploadFile1', upload2.any(), function (req, res) {
 
+    console.log(req.body);
+});
 apiRoutes.post("/uploadFile", upload.single('file'), function (req, res, next) {
    if (req.file==undefined) {
     return res.status(422).send({ error: 'You must select a file to upload.' });

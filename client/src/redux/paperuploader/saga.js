@@ -1,15 +1,14 @@
 import { all, takeEvery, call } from 'redux-saga/effects';
 import actions from './actions';
 import axios from 'axios';
-import { delay } from 'redux-saga';
 
 const onPostRequest = async (data) => {
-  for (var value of data.values()) {
-     console.log(value);
-  }
-  for (var key of data.keys()) {
-   console.log(key);
-  }
+  // for (var value of data.values()) {
+  //    console.log(value);
+  // }
+  // for (var key of data.keys()) {
+  //  console.log(key);
+  // }
   //  console.log('onPostRequest')
   return axios.post('http://localhost:3000/api/uploadFile', data)
 }
