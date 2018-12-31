@@ -12,6 +12,10 @@ const routes = [
     component: asyncComponent(() => import('../PaperUploader')),
   },
   {
+    path: 'paperDisplay',
+    component: asyncComponent(() => import('../PaperDisplay')),
+  },
+  {
     path: 'blankPage',
     component: asyncComponent(() => import('../blankPage')),
   },

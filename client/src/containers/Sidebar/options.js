@@ -5,6 +5,11 @@ const options = [
     leftIcon: 'ion-document',
   },
   {
+    key: 'paperDisplay',
+    label: 'sidebar.paperDisplay',
+    leftIcon: 'ion-document',
+  },
+  {
     key: 'blankPage',
     label: 'sidebar.blankPage',
     leftIcon: 'ion-document',

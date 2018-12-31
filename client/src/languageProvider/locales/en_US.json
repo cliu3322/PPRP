@@ -554,5 +554,6 @@
   "topbar.viewCart": "View Cart",
   "topbar.totalPrice": "Total Price",
 
-  "sidebar.paperUploader": "Upload Your paper"
+  "sidebar.paperUploader": "Upload Your paper",
+  "sidebar.paperDisplay":"Display Paper"
 }

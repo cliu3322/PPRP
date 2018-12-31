@@ -5,7 +5,10 @@ import FileDetail from "./models/FileDetail";
 const fileUploadMiddleware = require("./file-upload-middleware");
 
 export default function(app) {
+  app.use('/pdf', express.static('uploads'));
+
   const apiRoutes = express.Router();
+
 
   var storage = multer.diskStorage({
     destination: function(req, file, cb) {
