@@ -1,11 +1,14 @@
-import actions from './actions';
-
+import actions from "./actions";
 
 const initState = {
-  author: '',
-  paper: ''
- };
-
+  author: "",
+  paper: "",
+  abstract: "",
+  subject: "",
+  source: "",
+  reference_number: "",
+  method: ""
+};
 
 export default function paperReducer(state = initState, action) {
   switch (action.type) {

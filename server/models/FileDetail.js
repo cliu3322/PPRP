@@ -1,17 +1,22 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const FileDetailSchema = new Schema({
+const FileDetailSchema = new Schema(
+  {
     _id: mongoose.Schema.Types.ObjectId,
     uploader: { type: String, required: true },
     filePath: { type: String, required: true },
     fileName: { type: String, required: true },
-    author: { type: String, required: false }
-},
-{
-  timestamps: true
-}
-
+    author: { type: String, required: false },
+    abstract: { type: String, required: false },
+    subject: { type: String, required: false },
+    source: { type: String, required: false },
+    reference_number: { type: Number, required: false },
+    method: { type: String, required: false }
+  },
+  {
+    timestamps: true
+  }
 );
 
-module.exports = mongoose.model('FileDetail', FileDetailSchema);
+module.exports = mongoose.model("FileDetail", FileDetailSchema);
