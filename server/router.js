@@ -41,6 +41,7 @@ export default function(app) {
     res,
     next
   ) {
+    console.log('no problem')
     if (req.file == undefined) {
       return res
         .status(422)
@@ -78,7 +79,7 @@ export default function(app) {
         });
       })
       .catch(err => {
-        console.log("err");
+        console.log(err);
         res.status(500).json({
           error: err
         });
@@ -87,6 +88,7 @@ export default function(app) {
 
   apiRoutes.get("/getFileDetails", function(req, res) {
     FileDetail.find({}).exec(function(err, files) {
+      console.log(files)
       if (files) {
         res.status(201).json({
           allFilesDetail: files

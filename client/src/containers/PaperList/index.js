@@ -1,59 +1,73 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import ProfileItem from "./ProfileItem";
-import { getPapers } from "../../redux/paperlist/actions";
-import axios from "axios";
-import { Link } from "react-router-dom";
+
+//import ProfileItem from "./ProfileItem";
+import actions from "../../redux/paperlist/actions";
+//import axios from "axios";
+
+import {  List, Icon } from 'antd';
+
+const IconText = ({ type, text }) => (
+  <span>
+    <Icon type={type} style={{ marginRight: 8 }} />
+    {text}
+  </span>
+);
 
 class Papers extends Component {
-  state = {
-    papers: []
-  };
+  constructor(props) {
+    super(props);
+    const {  initData } = this.props;
+    initData();
+    //console.log(this.state.contactOptions)
+  }
   componentDidMount() {
-    this.props.getPapers();
-
-    // axios.get("/api/getFileDetails").then(res => {
-    //   this.setState({ papers: res.data });
-    //   console.log(this.state.papers);
-    // });
+    const {  initData } = this.props;
+    initData();
   }
 
+
+
   render() {
-    // let profileItems;
-    const { papers } = this.state;
 
     // profileItems = papers.map(paper => (
     //   <ProfileItem key={paper._id} paper={paper} />
     // ));
 
     return (
-      <div className="card card-body bg-light mb-3">
-        <div className="row">
-          <div className="col-lg-6 col-md-4 col-8">
-            <h1 className="display-4 text-center"> Papers</h1>
-            {papers.author}
-            <p>{papers.abstract}</p>
-
-            <Link to={"/paperDisplay"} className="btn btn-info">
-              aaa
-            </Link>
-          </div>
-        </div>
-      </div>
+      <List
+        header={<div>Header</div>}
+        footer={<div>Footer</div>}
+        bordered
+        dataSource={this.props.paperList}
+        renderItem={item => (
+          <List.Item
+            key={item._id}
+            actions={[<IconText type="star-o" text={item.reference_number} />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
+            extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+          >
+            <List.Item.Meta
+              title={<a>{item.author}</a>}
+            />
+            {<a href={'http://localhost:3000/pdf/'+item.fileName}>{item.fileName}</a>}
+          </List.Item>
+        )}
+      />
     );
   }
 }
 
-Papers.propTypes = {
-  getPapers: PropTypes.func.isRequired
-};
 
-const mapStateToProps = state => ({
-  papers: state.papers
-});
+
+
+function mapStateToProps(state) {
+
+  return {
+    paperList: state.PaperList.paperlist
+  };
+}
 
 export default connect(
   mapStateToProps,
-  { getPapers }
+  actions
 )(Papers);

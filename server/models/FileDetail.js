@@ -11,7 +11,7 @@ const FileDetailSchema = new Schema(
     abstract: { type: String, required: false },
     subject: { type: String, required: false },
     source: { type: String, required: false },
-    reference_number: { type: Number, required: false },
+    reference_number: { type: String, required: false },
     method: { type: String, required: false }
   },
   {

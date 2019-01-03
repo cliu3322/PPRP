@@ -8,7 +8,7 @@ import LayoutWrapper from "../../components/utility/layoutWrapper.js";
 import IntlMessages from "../../components/utility/intlMessages";
 import Button from "../../components/uielements/button";
 import actions from "../../redux/paperuploader/actions.js";
-import axios from "axios";
+
 
 const { addPaper } = actions;
 const FormItem = Form.Item;
