@@ -70,6 +70,7 @@
   "sidebar.invoice": "Invoice",
   "sidebar.menuLevels": "Menu Levels",
   "sidebar.item1": "Item 1",
+  "sidebar.paperList": "Papers",
   "sidebar.item2": "Item 2",
   "sidebar.option1": "Option 1",
   "sidebar.option2": "Option 2",
@@ -555,5 +556,5 @@
   "topbar.totalPrice": "Total Price",
 
   "sidebar.paperUploader": "Upload Your paper",
-  "sidebar.paperDisplay":"Display Paper"
+  "sidebar.paperDisplay": "Display Paper"
 }

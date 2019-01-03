@@ -1,28 +1,32 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import asyncComponent from '../../helpers/AsyncFunc';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import asyncComponent from "../../helpers/AsyncFunc";
 
 const routes = [
   {
-    path: '',
-    component: asyncComponent(() => import('../dashboard')),
+    path: "",
+    component: asyncComponent(() => import("../dashboard"))
   },
   {
-    path: 'paperUploader',
-    component: asyncComponent(() => import('../PaperUploader')),
+    path: "paperUploader",
+    component: asyncComponent(() => import("../PaperUploader"))
   },
   {
-    path: 'paperDisplay',
-    component: asyncComponent(() => import('../PaperDisplay')),
+    path: "paperDisplay",
+    component: asyncComponent(() => import("../PaperDisplay"))
   },
   {
-    path: 'blankPage',
-    component: asyncComponent(() => import('../blankPage')),
+    path: "paperList",
+    component: asyncComponent(() => import("../PaperList/index.js"))
   },
   {
-    path: 'authCheck',
-    component: asyncComponent(() => import('../AuthCheck')),
+    path: "blankPage",
+    component: asyncComponent(() => import("../blankPage"))
   },
+  {
+    path: "authCheck",
+    component: asyncComponent(() => import("../AuthCheck"))
+  }
 ];
 
 class AppRouter extends Component {
