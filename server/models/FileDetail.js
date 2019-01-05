@@ -7,6 +7,7 @@ const FileDetailSchema = new Schema(
     uploader: { type: String, required: true },
     filePath: { type: String, required: true },
     fileName: { type: String, required: true },
+    title: { type: String, required: false },
     author: { type: String, required: false },
     abstract: { type: String, required: false },
     subject: { type: String, required: false },

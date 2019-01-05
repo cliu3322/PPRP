@@ -1,6 +1,7 @@
 import actions from "./actions";
 
 const initState = {
+  title: "",
   author: "",
   paper: "",
   abstract: "",

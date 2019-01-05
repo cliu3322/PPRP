@@ -5,10 +5,9 @@ import FileDetail from "./models/FileDetail";
 const fileUploadMiddleware = require("./file-upload-middleware");
 
 export default function(app) {
-  app.use('/pdf', express.static('uploads'));
+  app.use("/pdf", express.static("uploads"));
 
   const apiRoutes = express.Router();
-
 
   var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -41,7 +40,7 @@ export default function(app) {
     res,
     next
   ) {
-    console.log('no problem')
+    console.log("no problem");
     if (req.file == undefined) {
       return res
         .status(422)
@@ -54,6 +53,7 @@ export default function(app) {
       uploader: "Ajay",
       filePath: req.file.path,
       fileName: req.file.originalname,
+      title: req.body.title,
       author: req.body.author,
       abstract: req.body.abstract,
       subject: req.body.subject,
@@ -88,7 +88,7 @@ export default function(app) {
 
   apiRoutes.get("/getFileDetails", function(req, res) {
     FileDetail.find({}).exec(function(err, files) {
-      console.log(files)
+      console.log(files);
       if (files) {
         res.status(201).json({
           allFilesDetail: files

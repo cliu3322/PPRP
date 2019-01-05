@@ -9,7 +9,6 @@ import IntlMessages from "../../components/utility/intlMessages";
 import Button from "../../components/uielements/button";
 import actions from "../../redux/paperuploader/actions.js";
 
-
 const { addPaper } = actions;
 const FormItem = Form.Item;
 
@@ -28,6 +27,7 @@ class PaperUploader extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let data = new FormData();
+    data.append("title", this.state.title);
     data.append("author", this.state.author);
     data.append("abstract", this.state.abstract);
     data.append("file", this.state.file);
@@ -46,6 +46,9 @@ class PaperUploader extends Component {
     //data.append('file', event.target.files[0])
   };
 
+  updateTitle = event => {
+    this.props.title = event.target.value;
+  };
   updateAuthor = event => {
     this.props.author = event.target.value;
   };
@@ -69,10 +72,18 @@ class PaperUploader extends Component {
     return (
       <LayoutWrapper>
         <PageHeader>
-          {<IntlMessages id="forms.formsWithValidation.header" />}
+          {<IntlMessages id="forms.formsWithValidation.header_uploadform" />}
         </PageHeader>
         <Box>
           <Form onSubmit={this.handleSubmit}>
+            <FormItem {...formItemLayout}>
+              <Input
+                placeholder="Title"
+                id="title"
+                onChange={event => this.setState({ title: event.target.value })}
+              />
+            </FormItem>
+
             <FormItem {...formItemLayout}>
               <Input
                 placeholder="Author"
